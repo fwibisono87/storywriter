@@ -1,5 +1,7 @@
 <script>
 	import { draggable } from '@neodrag/svelte';
+    import { fade, blur, fly, slide, scale } from "svelte/transition";
+    import Token from '../components/token.svelte';
 
 	let innerWidth = 0;
 	$: gridCellWidth = innerWidth / columns;
@@ -26,20 +28,14 @@
 <label><input type="checkbox" bind:checked={snapToGrid} />snap</label>
 the position is now in {position.x} {position.y}
 
-<div class="primary-grid bg-blue-200 w-fit h-fit" id="grids" style="--numCols: {columns}">
-	<div
-		use:draggable={{
-			grid: snapToGrid ? [gridCellWidth, gridCellWidth] : undefined,
-			bounds: '#grids',
-			position,
-			onDrag: ({ offsetX, offsetY }) => {
-				position = { x: offsetX, y: offsetY };
-			}
-		}}
-		class="select-none cursor-pointer bg-red-500 my-auto rounded-full token flex"
-	>
-		<span class="mx-auto my-auto"> a </span>
-	</div>
+<div class="primary-grid bg-blue-200 " id="grids" style="--numCols: {columns}">
+    {#each Array(5) as a}
+	<Token
+        snapToGrid={snapToGrid}
+        gridCellWidth={gridCellWidth}
+        numCols = {columns}
+        />
+        {/each}
 	{#each cells as i}
 		<div class="grid-cell border-black border-2" style="--numCols: {columns}" />
 	{/each}
@@ -61,8 +57,5 @@ the position is now in {position.x} {position.y}
 		grid-template-columns: repeat(var(--numCols), 1fr);
 	}
 
-	.token {
-		height: calc(100vw / var(--numCols));
-		width: calc(100vw / var(--numCols));
-	}
+	
 </style>
