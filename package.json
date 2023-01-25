@@ -1,5 +1,5 @@
 {
-	"name": "svelte-starter",
+	"name": "storywriter",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -37,5 +37,8 @@
 		"vite": "^4.0.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@neodrag/svelte": "^2.0.3"
+	}
 }
